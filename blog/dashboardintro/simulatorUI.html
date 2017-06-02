@@ -4,12 +4,14 @@
         <script>
             function generateTemperature() {
                 var xhr = new XMLHttpRequest();
+                // Replace the below URL 
                 xhr.open("GET", "https://iotdemos.scriptrapps.io/blog/dashboardintro/getTemperature", true);
                 xhr.send();
             }
         </script>
     </head>
     <body>        
+        <!-- Replace the below URL -->
     	<iframe width="100%" height="80%" src="https://iotdemos.scriptrapps.io/blog/dashboardintro/dasboard" frameborder="0"></iframe>
         <input type="button" value="Generate temperature" onclick="generateTemperature()"></input>
     </body>
