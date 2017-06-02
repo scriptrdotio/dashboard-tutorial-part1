@@ -1,0 +1,16 @@
+<html>
+    <head>
+        <title>Temperature device simulator</title>
+        <script>
+            function generateTemperature() {
+                var xhr = new XMLHttpRequest();
+                xhr.open("GET", "https://iotdemos.scriptrapps.io/blog/dashboardintro/getTemperature", true);
+                xhr.send();
+            }
+        </script>
+    </head>
+    <body>        
+    	<iframe width="100%" height="80%" src="https://iotdemos.scriptrapps.io/blog/dashboardintro/dasboard" frameborder="0"></iframe>
+        <input type="button" value="Generate temperature" onclick="generateTemperature()"></input>
+    </body>
+</html>

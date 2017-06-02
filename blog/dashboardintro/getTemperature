@@ -1,0 +1,5 @@
+/**
+ * Temperature API
+ */
+var device = require("./device");
+return device.getTemperature();

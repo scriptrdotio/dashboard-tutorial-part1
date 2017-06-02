@@ -1,0 +1,6 @@
+/**
+ * List temperatures API
+ */
+var device = require("./device");
+return device.listTemperatures();
+

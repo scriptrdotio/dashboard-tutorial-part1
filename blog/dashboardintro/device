@@ -1,0 +1,51 @@
+/**
+ * Device simulator
+ */ 
+var document = require("document"); // require the native "document" library
+function getTemperature() {
+    var temp = 20 + Math.round(Math.random() * 5);
+    var fields = { // prepate the data stucture to persist
+    	temperature: temp,
+        "meta.types": {
+            temperature: "numeric"
+        }
+    }
+    
+    document.create(fields); // create a document   
+    publishMessages(temp); // publish to the responseChannel
+    return temp;
+}
+
+function listTemperatures() {
+    var request = { // retrieve all documents where temperature >= 0
+        "query": "temperature<numeric> >= 0",
+        "fields": "temperature, creationDate" // fields to return (key and version number are automatically added)       
+    };
+    
+    var resp = document.query(request);
+    if (resp.metadata.status == "failure") {
+        return "error";
+    }
+    
+    var docs = resp.result.documents;
+    var lineChartStruct = [];
+    for (var i = 0; i < docs.length; i++) {
+        var dot = {
+            date: docs[i].creationDate, // y axis
+            temperature: docs[i].temperature // x axis
+        };
+
+        lineChartStruct.push(dot);
+    }
+
+    return lineChartStruct;
+}
+
+function publishMessages(temp) {
+          
+    var gaugeMsg = {"id": "gauge", result: temp};
+    publish("responseChannel", gaugeMsg); // we use the native publish function to publish messages
+    var temperatureList = listTemperatures(); // one a new temperature is read, we retrieve the updated temperatures list
+    var chartMsg = {"id": "chart", result: temperatureList};
+    publish("responseChannel", chartMsg);    
+}
