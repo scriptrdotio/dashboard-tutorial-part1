@@ -28,17 +28,7 @@ function listTemperatures() {
     }
     
     var docs = resp.result.documents;
-    var lineChartStruct = [];
-    for (var i = 0; i < docs.length; i++) {
-        var dot = {
-            date: docs[i].creationDate, // y axis
-            temperature: docs[i].temperature // x axis
-        };
-
-        lineChartStruct.push(dot);
-    }
-
-    return lineChartStruct;
+    return docs;
 }
 
 function publishMessages(temp) {
